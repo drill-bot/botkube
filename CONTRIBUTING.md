@@ -29,11 +29,11 @@ Now you can build and run BotKube by one of the following ways
 
 ### Build the container image
 
-1. This will build BotKube and create a new container image tagged as `ghcr.io/infracloudio/botkube:v9.99.9-dev`
+1. This will build BotKube and create a new container image tagged as `ghcr.io/drill-bot/botkube:v9.99.9-dev`
    ```sh
    $ make build
    $ make container-image
-   $ docker tag ghcr.io/infracloudio/botkube:v9.99.9-dev-amd64 <your_account>/botkube:v9.99.9-dev
+   $ docker tag ghcr.io/drill-bot/botkube:v9.99.9-dev-amd64 <your_account>/botkube:v9.99.9-dev
    $ docker push <your_account>/botkube:v9.99.9-dev
    ```
    Where `<your_account>` is Docker hub account to which you can push the image
@@ -43,7 +43,7 @@ Now you can build and run BotKube by one of the following ways
    a. Using helm (v3)
 
    ```sh
-   $ helm repo add infracloudio https://infracloudio.github.io/charts
+   $ helm repo add infracloudio https://drill-bot.github.io/botkube-charts
    $ helm repo update
    $ kubectl create namespace botkube
    $ helm install --version v9.99.9-dev botkube --namespace botkube \
