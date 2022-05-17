@@ -19,3 +19,6 @@ vendor/
 
 # Tags
 tags
+
+# Temp files
+*.bak

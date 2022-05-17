@@ -44,7 +44,7 @@ generate_changelog() {
 
     # generate changelog from github
     github_changelog_generator --user drill-bot --project botkube -t ${GITHUB_TOKEN} --future-release ${version} -o CHANGELOG.md
-    sed -i '$d' CHANGELOG.md
+    sed -i.bak '$d' CHANGELOG.md
 }
 
 update_chart_yamls() {
@@ -54,7 +54,7 @@ update_chart_yamls() {
     dir=(./helm ./deploy-all-in-one.yaml ./deploy-all-in-one-tls.yaml)
     for d in ${dir[@]}
     do
-        find $d -type f -exec sed -i "s/$previous_version/$version/g" {} \;
+        find $d -type f -exec sed -i.bak "s/$previous_version/$version/g" {} \;
     done
 }
 
@@ -62,7 +62,7 @@ publish_release() {
     local version=$1
 
     # create gh release
-    gothub release \
+    github-release release \
 	   --user drill-bot \
 	   --repo botkube \
 	   --tag $version \
