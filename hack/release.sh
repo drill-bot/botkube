@@ -54,26 +54,13 @@ update_chart_yamls() {
     dir=(./helm ./deploy-all-in-one.yaml ./deploy-all-in-one-tls.yaml)
     for d in ${dir[@]}
     do
-        find $d -type f -exec sed -i.bak "s/$previous_version/$version/g" {} \;
+        find $d -type f -name "*.yaml" -exec sed -i.bak "s/$previous_version/$version/g" {} \;
     done
-}
-
-publish_release() {
-    local version=$1
-
-    # create gh release
-    github-release release \
-	   --user drill-bot \
-	   --repo botkube \
-	   --tag $version \
-	   --name "$version" \
-	   --description "$version"
 }
 
 update_chart_yamls $version
 generate_changelog $version
 make release
-publish_release $version
 
 echo "=========================== Done ============================="
 echo "Congratulations!! Release ${version} published."
