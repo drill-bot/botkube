@@ -32,15 +32,15 @@ release_snapshot() {
   export GORELEASER_CURRENT_TAG=v9.99.9-dev
   goreleaser release --rm-dist --snapshot --skip-publish
   # Push images
-  docker push ghcr.io/infracloudio/botkube:${GORELEASER_CURRENT_TAG}-amd64
-  docker push ghcr.io/infracloudio/botkube:${GORELEASER_CURRENT_TAG}-arm64
-  docker push ghcr.io/infracloudio/botkube:${GORELEASER_CURRENT_TAG}-armv7
+  docker push ghcr.io/drill-bot/botkube:${GORELEASER_CURRENT_TAG}-amd64
+  docker push ghcr.io/drill-bot/botkube:${GORELEASER_CURRENT_TAG}-arm64
+  docker push ghcr.io/drill-bot/botkube:${GORELEASER_CURRENT_TAG}-armv7
   # Create manifest
-  docker manifest create ghcr.io/infracloudio/botkube:${GORELEASER_CURRENT_TAG} \
-    --amend ghcr.io/infracloudio/botkube:${GORELEASER_CURRENT_TAG}-amd64 \
-    --amend ghcr.io/infracloudio/botkube:${GORELEASER_CURRENT_TAG}-arm64 \
-    --amend ghcr.io/infracloudio/botkube:${GORELEASER_CURRENT_TAG}-armv7
-  docker manifest push ghcr.io/infracloudio/botkube:${GORELEASER_CURRENT_TAG}
+  docker manifest create ghcr.io/drill-bot/botkube:${GORELEASER_CURRENT_TAG} \
+    --amend ghcr.io/drill-bot/botkube:${GORELEASER_CURRENT_TAG}-amd64 \
+    --amend ghcr.io/drill-bot/botkube:${GORELEASER_CURRENT_TAG}-arm64 \
+    --amend ghcr.io/drill-bot/botkube:${GORELEASER_CURRENT_TAG}-armv7
+  docker manifest push ghcr.io/drill-bot/botkube:${GORELEASER_CURRENT_TAG}
 }
 
 build() {
