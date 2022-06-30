@@ -57,7 +57,7 @@ jobs:
         git config --global user.email "botkube-ci@infracloud.io"
         git config --global user.name "BotKube CI"
         git clone https://github.com/drill-bot/botkube-charts.git
-        cd charts
+        cd botkube-charts
         git fetch
         git branch
         git pull origin gh-pages
