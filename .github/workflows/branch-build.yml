@@ -11,8 +11,8 @@ env:
   K3D_VERSION: v5.4.3
   INTEGRATION_TESTS_TIMEOUT: 10m
   IMAGE_REGISTRY: "ghcr.io"
-  IMAGE_REPOSITORY: "infracloudio/botkube"
-  TEST_IMAGE_REPOSITORY: "infracloudio/botkube-test"
+  IMAGE_REPOSITORY: "drill-bot/botkube"
+  TEST_IMAGE_REPOSITORY: "drill-bot/botkube-test"
   IMAGE_TAG: v9.99.9-dev # TODO: Use commit hash tag to make the predictable builds for each commit on branch
   HELM_CHART_VERSION: v9.99.9-dev # TODO: Use commit hash tag to make the predictable builds for each commit on branch
 
@@ -56,16 +56,16 @@ jobs:
         cd ..
         git config --global user.email "botkube-ci@infracloud.io"
         git config --global user.name "BotKube CI"
-        git clone https://github.com/infracloudio/charts.git
+        git clone https://github.com/drill-bot/botkube-charts.git
         cd charts
         git fetch
         git branch
         git pull origin gh-pages
         helm package --app-version ${HELM_CHART_VERSION} --version ${HELM_CHART_VERSION} ${{ github.workspace }}/helm/botkube/
-        helm repo index --url https://infracloudio.github.io/charts --merge index.yaml .
+        helm repo index --url https://drill-bot.github.io/botkube-charts --merge index.yaml .
         git add .
         git commit -m "Update BotKube latest helm chart"
-        git push https://${{ secrets.GH_TOKEN }}@github.com/infracloudio/charts.git
+        git push https://${{ secrets.GH_TOKEN }}@github.com/drill-bot/botkube-charts.git
 
   integration-tests:
     name: Integration tests
@@ -98,7 +98,7 @@ jobs:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           SLACK_TESTER_APP_TOKEN: ${{ secrets.SLACK_TESTER_APP_TOKEN }}
         run: |
-          helm repo add infracloudio https://infracloudio.github.io/charts
+          helm repo add infracloudio https://drill-bot.github.io/botkube-charts
           helm repo update
           helm install botkube --namespace botkube infracloudio/botkube --version ${HELM_CHART_VERSION} --wait --create-namespace \
             -f ./helm/botkube/e2e-test-values.yaml \
